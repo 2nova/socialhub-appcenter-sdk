@@ -1,0 +1,22 @@
+{
+    "name": "2nova/socialhub-appcenter-sdk",
+    "description": "SocialHub App Center PHP SDK",
+    "license": "MIT",
+    "keywords": ["appcenter", "socialhub"],
+    "version": "0.1.1",
+    "authors": [
+        {
+            "name": "Ivan Nikitin",
+            "email": "vantoozz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Novanova\\SocialHub\\AppCenter": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
