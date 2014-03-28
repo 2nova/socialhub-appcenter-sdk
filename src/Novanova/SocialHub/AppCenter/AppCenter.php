@@ -23,21 +23,18 @@ class AppCenter
     /**
      * @var string
      */
-    private $api_url = "https://socialhub.dev/api/v1";
+    private $api_url;
 
     /**
      * @param int $app_id
      * @param string $secret
-     * @param string|null $api_url
+     * @param string $api_url
      */
-    public function __construct($app_id, $secret, $api_url = null)
+    public function __construct($app_id, $secret, $api_url)
     {
         $this->app_id = $app_id;
         $this->secret = $secret;
-
-        if ($api_url) {
-            $this->api_url = $api_url;
-        }
+        $this->api_url = $api_url;
     }
 
 
