@@ -60,7 +60,7 @@ class AppCenter
 
         $response = json_decode($response);
         if (!$response || JSON_ERROR_NONE !== json_last_error()) {
-            throw new AppCenterException('App Center API error');
+            AppCenterException::throwException(AppCenterException::APP_CENTER_API_ERROR);
         }
 
         if (empty($response->success)) {
@@ -95,7 +95,7 @@ class AppCenter
     public function sign(array $data)
     {
         if (!isset($data['rnd']) || !$data['rnd']) {
-            throw new AppCenterException('No rnd field');
+            AppCenterException::throwException(AppCenterException::NO_RND_FIELD);
         }
         $sign = '';
         ksort($data);
