@@ -26,15 +26,22 @@ class AppCenter
     private $api_url;
 
     /**
+     * @var bool
+     */
+    private $verify_ssl;
+
+    /**
      * @param int $app_id
      * @param string $secret
      * @param string $api_url
+     * @param bool $verify_ssl
      */
-    public function __construct($app_id, $secret, $api_url)
+    public function __construct($app_id, $secret, $api_url, $verify_ssl = true)
     {
         $this->app_id = $app_id;
         $this->secret = $secret;
         $this->api_url = $api_url;
+        $this->verify_ssl = $verify_ssl;
     }
 
 
@@ -55,7 +62,14 @@ class AppCenter
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $this->verify_ssl ? 2 : 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verify_ssl ? 1 : 0);
         $response = curl_exec($ch);
+
+        if (false === $response) {
+            throw new AppCenterException(curl_error($ch), AppCenterException::CURL_ERROR);
+        }
+
         curl_close($ch);
 
         $response = json_decode($response);
