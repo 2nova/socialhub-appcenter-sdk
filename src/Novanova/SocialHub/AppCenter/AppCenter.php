@@ -51,7 +51,12 @@ class AppCenter
         $params['method'] = $method;
         $params['sign'] = $this->sign($params);
 
-        $response = file_get_contents($this->api_url . '?' . http_build_query($params));
+        $ch = curl_init($this->api_url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
         $response = json_decode($response);
         if (!$response || JSON_ERROR_NONE !== json_last_error()) {
